@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { useState, useEffect } from 'react';
 
 function App() {
+  // state
+  const [data, setData] = useState([{}])
+
+  useEffect(() => 
+    {
+    	fetch("/members").then(
+          response => response.json()
+        ).then(
+          data => {
+            setData(data);
+            console.log(data);
+          }
+        ).catch(
+          (err) => console.log(err)
+        )
+    }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <h1>testing.</h1>
+      <div>
+        {(typeof data.members === 'undefined') ? (
+          <p>loding...</p>
+        ) : (
+          data.members.map((member, i) => (
+            <p key={i}>{member}</p>
+          ))
+        )}
+      </div>
     </div>
-  );
+  )
 }
 
 export default App;
