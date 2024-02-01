@@ -44,6 +44,24 @@ function App() {
       .catch(err => console.log(err));
   };
 
+  const updateMember = () => {
+    fetch("/update-member", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        old_member: "new_member",  // Replace this with the member you want to update
+        new_member: "updated_member1",  // Replace this with the updated member data
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        setData({ members: [...data.members] });
+      })
+      .catch(err => console.log(err));
+  };
+
   return (
     <div className='App'>
       <h1>Testing</h1>
@@ -57,6 +75,7 @@ function App() {
         )}
         <button onClick={addMember}>Add Member</button>
         <button onClick={deleteMember}>Delete Member</button>
+        <button onClick={updateMember}>Update Member</button>
       </div>
     </div>
   );
