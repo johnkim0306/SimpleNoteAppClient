@@ -30,7 +30,7 @@ function App() {
   };
 
   const deleteMember = () => {
-    fetch("/add-member", {
+    fetch("/delete-member", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,6 +43,7 @@ function App() {
       })
       .catch(err => console.log(err));
   };
+
   return (
     <div className='App'>
       <h1>Testing</h1>
