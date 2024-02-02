@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import Navbar from "./components/Navbar";
+
 
 function App() {
   // state
   const [data, setData] = useState({ members: [] });
+  const [noteLists, setNoteLists] = useState([]);
 
   useEffect(() => {
     fetch("/members")
@@ -62,8 +65,19 @@ function App() {
       .catch(err => console.log(err));
   };
 
+  const shownoteLists = () => {
+    fetch("/lists")
+      .then(response => response.json())
+      .then(data => {
+        // Assuming your server responds with an array of note lists
+        setNoteLists(data.note_lists || []);
+      })
+      .catch(err => console.log(err));
+  };
+
   return (
     <div className='App'>
+      <Navbar />
       <h1>Testing</h1>
       <div>
         {typeof data.members === 'undefined' ? (
@@ -76,6 +90,7 @@ function App() {
         <button onClick={addMember}>Add Member</button>
         <button onClick={deleteMember}>Delete Member</button>
         <button onClick={updateMember}>Update Member</button>
+        <button onClick={shownoteLists}>See the note lists</button>
       </div>
     </div>
   );
