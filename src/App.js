@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from "./components/Navbar";
+import BoardComponent from "./components/BoardComponent";
 
 
 function App() {
@@ -69,7 +70,6 @@ function App() {
     fetch("/lists")
       .then(response => response.json())
       .then(data => {
-        // Assuming your server responds with an array of note lists
         setNoteLists(data.note_lists || []);
       })
       .catch(err => console.log(err));
@@ -78,14 +78,19 @@ function App() {
   return (
     <div className='App'>
       <Navbar />
+      <BoardComponent members={data.members} />
       <h1>Testing</h1>
       <div>
         {typeof data.members === 'undefined' ? (
           <p>Loading...</p>
         ) : (
           data.members.map((member, i) => (
-            <p key={i}>{member}</p>
+            <div key={i}>
+              <p>Name: {member.name}</p>
+              <p>Content: {member.content}</p>
+            </div>
           ))
+          
         )}
         <button onClick={addMember}>Add Member</button>
         <button onClick={deleteMember}>Delete Member</button>
