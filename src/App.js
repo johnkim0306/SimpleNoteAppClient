@@ -55,8 +55,8 @@ function App() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        old_member: "new_member",  // Replace this with the member you want to update
-        new_member: "updated_member1",  // Replace this with the updated member data
+        old_member: "new_member",  
+        new_member: "updated_member1",
       }),
     })
       .then(response => response.json())
